@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "940686551111",
+    "firebase_url": "https://a-cara-do-rock.firebaseio.com",
+    "project_id": "a-cara-do-rock",
+    "storage_bucket": "a-cara-do-rock.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:940686551111:android:43ff24abb4daa81db26962",
+        "android_client_info": {
+          "package_name": "com.podekrast.acaradorock"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "940686551111-3qmmcb17t55gb9m66snum13d0vtv3aak.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.podekrast.acaradorock",
+            "certificate_hash": "02340c94a9615f75d90c9b4421339d5cbe32181e"
+          }
+        },
+        {
+          "client_id": "940686551111-b423h0sco0uicn024k3dbo9341lhckr9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApe9lr7Sc3TPY_mbK3zbjdekc72tVFGmE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "940686551111-b423h0sco0uicn024k3dbo9341lhckr9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.podekrast.acaradorock">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/pdk"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/acdr_login"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="m">
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-6206215521622619~6830012632" />
+
+        <activity android:name=".WelcomeActivity" />
+        <activity android:name=".audios.TributeAudioActivity" />
+        <activity android:name=".audios.GameSoundTrackAudioActivity" />
+        <activity android:name=".audios.MadeInBrazilAudioActivity" />
+        <activity android:name=".audios.UnderCoverAudioActivity" />
+        <activity android:name=".audios.ClassicsAudioActivity" />
+        <activity android:name=".audios.BackToStageAudioActivity" />
+        <activity android:name=".audios.PlayerAudioActivity" />
+        <activity android:name=".audios.RockRollaAudioActivity" />
+        <activity android:name=".AudiosActivity" />
+        <activity android:name=".SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".HomeActivity" />
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".LoginActivity" />
+    </application>
+
+</manifest>

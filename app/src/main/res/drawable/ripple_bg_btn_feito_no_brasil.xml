@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#000613">
+
+    <item
+        android:id="@+id/mask"
+        android:drawable="@drawable/bg_btn_feito_no_brasil" />
+</ripple>
