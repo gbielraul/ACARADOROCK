@@ -44,34 +44,18 @@
             app:layout_constraintTop_toBottomOf="@id/txt_welcome" />
 
         <Button
-            android:id="@+id/btn_login_welcome"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/bg_btn_rounded"
-            android:onClick="loginWelcome"
+            android:id="@+id/btn_sign_in_welcome"
+            style="@style/RoundedRedButton"
             android:text="@string/access_your_account"
-            android:textColor="@android:color/white"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@id/button"
+            app:layout_constraintBottom_toTopOf="@id/btn_sign_up_welcome"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
 
         <Button
-            android:id="@+id/button"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="32dp"
-            android:background="@drawable/bg_btn_rounded"
-            android:onClick="registerWelcome"
+            android:id="@+id/btn_sign_up_welcome"
+            style="@style/RoundedRedButton"
             android:text="@string/create_your_account"
-            android:textColor="@android:color/white"
-            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />

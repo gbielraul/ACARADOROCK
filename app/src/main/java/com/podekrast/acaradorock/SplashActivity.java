@@ -16,7 +16,7 @@ public class SplashActivity extends AppCompatActivity implements Runnable {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        imgAcdr = findViewById(R.id.img_splash);
+        imgAcdr = findViewById(R.id.img_header_sign_in);
 
         Handler handler = new Handler();
         handler.postDelayed(this, 1500);

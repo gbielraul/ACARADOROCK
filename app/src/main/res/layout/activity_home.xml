@@ -135,7 +135,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/linear_audios">
 
                 <ImageView
-                    android:id="@+id/imageView"
+                    android:id="@+id/img_header_sign_up"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:layout_centerInParent="true"

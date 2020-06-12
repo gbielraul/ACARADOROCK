@@ -3,8 +3,11 @@ package com.podekrast.acaradorock;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -17,65 +20,75 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.podekrast.acaradorock.helper.ConfigFirebase;
 
-public class LoginActivity extends AppCompatActivity {
+public class SignInActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    private EditText mEditEmail, mEditPassword;
+    private EditText mEdtEmail, mEdtPassword;
     private RelativeLayout mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_sign_in);
 
         //Recupera a instância do Firebase Auth
         mAuth = ConfigFirebase.getAuth();
 
-        //Recupera as caixas de texto
-        mEditEmail = findViewById(R.id.edit_email);
-        mEditPassword = findViewById(R.id.edit_password);
-
-        //Recupera a progressBar
+        //Recupera as Views do XML
+        mEdtEmail = findViewById(R.id.edt_email_sign_in);
+        mEdtPassword = findViewById(R.id.edt_password_sign_in);
+        Button mBtnSignIn = findViewById(R.id.btn_sign_in);
+        Button mBtnReturn = findViewById(R.id.btn_return_sign_in);
         mProgressBar = findViewById(R.id.progress_bar_login);
+
+        //Adiciona o evento de clique para realizar o login
+        mBtnSignIn.setOnClickListener(signIn);
+        //Adiciona o evento de clique para retornar para a tela anterior
+        mBtnReturn.setOnClickListener(signInReturn);
     }
 
-    public void logInUser(View view) {
+    //Realiza o login do usuário
+    private View.OnClickListener signIn = v -> {
+
+        //Recupera o gerenciador de método de entrada
+        InputMethodManager im = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        //Se im for diferente de nulo, oculta o teclado
+        if (im != null) {
+            im.hideSoftInputFromWindow(mEdtEmail.getWindowToken(), 0);
+            im.hideSoftInputFromWindow(mEdtPassword.getWindowToken(), 0);
+        }
+
         //Recupera o texto das caixas de texto
-        String boxEmail = mEditEmail.getText().toString();
-        String boxPassword = mEditPassword.getText().toString();
+        String fieldEmail = mEdtEmail.getText().toString();
+        String fieldPassword = mEdtPassword.getText().toString();
 
         //Ativa a progressBar
         mProgressBar.setVisibility(View.VISIBLE);
 
-        //Valida se as caixas de texto estão preenchidas
-        if (boxEmail.isEmpty() || boxPassword.isEmpty()) {
-
+        //Chama o método que valida se os campos estão preenchidas
+        if (fieldEmail.isEmpty() || fieldPassword.isEmpty()) {
             //Se o e-mail ou a senha estiver vazio exibe um Toast
-            Toast.makeText(LoginActivity.this, "Preencha todos os campos!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(SignInActivity.this, R.string.validate, Toast.LENGTH_SHORT).show();
 
             //Desativa a progressBar
             mProgressBar.setVisibility(View.GONE);
         } else {
-
             //Se todas as caixas de texto estiver preenchidas, realiza o login do usuário
-            mAuth.signInWithEmailAndPassword(boxEmail, boxPassword)
+            mAuth.signInWithEmailAndPassword(fieldEmail, fieldPassword)
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-
                             if (task.isSuccessful()) {
-
                                 //Se o login foi efetuado com sucesso, chama o método que verifica se o usuário esta logado
                                 finish();
                             } else {
-
                                 //Se o login não foi efetuado com sucesso, exibe um Toast, indicando para o usuário, qual foi o erro
-                                String error;
+                                String error = "";
 
                                 //Recupera a exceção
                                 try {
-
-                                    throw task.getException();
+                                    if (task.getException() != null)
+                                        throw task.getException();
                                 } catch (FirebaseAuthInvalidUserException e) {
 
                                     error = "Não foi encontrada nenhuma conta com esse endereço de e-mail";
@@ -90,16 +103,13 @@ public class LoginActivity extends AppCompatActivity {
                                 //Desativa a progressBar
                                 mProgressBar.setVisibility(View.GONE);
                                 //Exibe um Toast com a mensagem de erro
-                                Toast.makeText(LoginActivity.this, error, Toast.LENGTH_LONG).show();
+                                Toast.makeText(SignInActivity.this, error, Toast.LENGTH_LONG).show();
                             }
                         }
                     });
         }
-    }
+    };
 
-    public void loginReturn(View view) {
-
-        //Muda para tela de bem-vindo
-        finish();
-    }
+    //Retorna para tela anterior
+    private View.OnClickListener signInReturn = v -> finish();
 }

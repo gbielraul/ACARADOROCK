@@ -5,34 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context=".RegisterActivity">
+    tools:context=".SignInActivity">
 
-    <ImageView
-        android:id="@+id/txt_crie_sua_conta"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="32dp"
-        android:background="?android:attr/selectableItemBackground"
-        android:fontFamily="sans-serif-black"
-        android:gravity="center"
-        android:onClick="registerReturn"
-        android:src="@drawable/ic_arrow_back"
-        android:text="@string/sign_up"
-        android:textColor="@android:color/white"
-        android:textSize="30sp"
-        android:tint="@android:color/white"
+    <Button
+        android:id="@+id/btn_return_sign_in"
+        style="@style/ButtonReturnForm"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
 
     <ScrollView
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_crie_sua_conta">
+        app:layout_constraintTop_toBottomOf="@+id/btn_return_sign_in">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -40,56 +28,38 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/img_header_sign_in"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
+                android:layout_margin="8dp"
                 android:layout_weight="1"
                 android:tint="@android:color/white"
-                app:srcCompat="@drawable/acdr_login" />
+                app:srcCompat="@drawable/acdr_login"
+                tools:ignore="ContentDescription" />
 
             <LinearLayout
-                android:id="@+id/linearLayout"
+                android:id="@+id/linear_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
                 <EditText
-                    android:id="@+id/edit_name_register"
+                    android:id="@+id/edt_email_sign_in"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginLeft="16dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginRight="16dp"
                     android:background="@drawable/bg_rounded"
-                    android:ems="10"
-                    android:hint="Nome"
-                    android:inputType="textPersonName"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp"
-                    android:textColor="@android:color/white"
-                    android:textColorHint="@android:color/white" />
-
-                <EditText
-                    android:id="@+id/edit_email_register"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginRight="16dp"
-                    android:background="@drawable/bg_rounded"
-                    android:ems="10"
                     android:hint="@string/email"
                     android:inputType="textEmailAddress"
+                    android:maxLines="1"
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp"
                     android:textColor="@android:color/white"
-                    android:textColorHint="@android:color/white" />
+                    android:textColorHint="@android:color/white"
+                    tools:ignore="AutoFill" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -97,57 +67,52 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginRight="16dp"
-                    android:layout_marginBottom="16dp"
                     android:background="@drawable/bg_rounded"
                     app:hintEnabled="false"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:passwordToggleEnabled="true"
                     app:passwordToggleTint="@android:color/white">
 
                     <EditText
-                        android:id="@+id/edit_password_register"
+                        android:id="@+id/edt_password_sign_in"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
                         android:hint="@string/password"
                         android:inputType="textPassword"
+                        android:maxLines="1"
                         android:paddingLeft="16dp"
                         android:paddingRight="16dp"
                         android:textColor="@android:color/white"
-                        android:textColorHint="@android:color/white" />
+                        android:textColorHint="@android:color/white"
+                        tools:ignore="AutoFill" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Button
-                    android:id="@+id/btn_register"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:background="@drawable/bg_btn_rounded"
-                    android:onClick="registerAccount"
-                    android:text="REGISTRAR"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp" />
+                    android:id="@+id/btn_sign_in"
+                    style="@style/RoundedRedButton"
+                    android:text="@string/sign_in" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
     <RelativeLayout
-        android:id="@+id/progress_bar_register"
+        android:id="@+id/progress_bar_login"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="#C3000000"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ProgressBar
+            style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true" />
     </RelativeLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
