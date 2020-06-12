@@ -7,78 +7,73 @@
     android:background="@color/colorPrimary"
     tools:context=".WelcomeActivity">
 
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="true">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/txt_welcome"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginRight="16dp"
+            android:fontFamily="@font/seguisb"
+            android:gravity="center"
+            android:text="@string/welcome_message"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white"
+            android:textSize="40sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/txt_welcome"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="40dp"
-                android:layout_marginRight="16dp"
-                android:fontFamily="@font/seguisb"
-                android:gravity="center"
-                android:text="@string/welcome"
-                android:textAllCaps="true"
-                android:textColor="@android:color/white"
-                android:textSize="40sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/txt_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/segoeuisl"
+            android:gravity="center"
+            android:text="Clique em um dos botões abaixo"
+            android:textColor="@android:color/holo_blue_light"
+            android:textSize="24sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_welcome" />
 
-            <TextView
-                android:id="@+id/txt_header"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/segoeuisl"
-                android:gravity="center"
-                android:text="Clique em um dos botões abaixo"
-                android:textColor="@android:color/holo_blue_light"
-                android:textSize="24sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txt_welcome" />
+        <Button
+            android:id="@+id/btn_login_welcome"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/bg_btn_rounded"
+            android:onClick="loginWelcome"
+            android:text="@string/access_your_account"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@id/button"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
 
-            <Button
-                android:id="@+id/btn_login_welcome"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="32dp"
-                android:onClick="loginWelcome"
-                android:layout_marginRight="16dp"
-                android:background="@drawable/bg_btn_rounded"
-                android:text="ACESSE SUA CONTA"
-                android:textColor="@android:color/white"
-                android:textSize="18sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txt_header" />
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/bg_btn_rounded"
-                android:text="CRIE UMA CONTA"
-                android:textColor="@android:color/white"
-                android:textSize="18sp"
-                android:onClick="registerWelcome"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_login_welcome" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+        <Button
+            android:id="@+id/button"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/bg_btn_rounded"
+            android:onClick="registerWelcome"
+            android:text="@string/create_your_account"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </RelativeLayout>

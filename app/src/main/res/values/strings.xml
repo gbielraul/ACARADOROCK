@@ -1,15 +1,17 @@
 <resources>
     <string name="app_name">A CARA DO ROCK</string>
-    <string name="acesse_sua_conta">ACESSE SUA CONTA</string>
+    <string name="access_your_account">Acesse sua conta</string>
+    <string name="create_your_account">Crie sua conta</string>
+    <string name="name">Name</string>
     <string name="email">Email</string>
-    <string name="senha">Senha</string>
-    <string name="entrar">ENTRAR</string>
-    <string name="criar_conta">Clique aqui para criar uma conta</string>
-    <string name="crie_sua_conta">CRIE SUA CONTA</string>
-    <string name="welcome">Pronto para ouvir A Cara do Rock?</string>
+    <string name="password">Senha</string>
+    <string name="sign_in">Entrar</string>
+    <string name="click_here_to_sign_up">Clique aqui para criar uma conta</string>
+    <string name="sign_up">Crie sua conta</string>
+    <string name="welcome_message">Pronto para ouvir A Cara do Rock?</string>
     <string name="audios">Audios</string>
-    <string name="logout_dialog_message">Você deseja sair da sua conta?</string>
     <string name="logout_dialog_title">Sair da conta</string>
+    <string name="logout_dialog_message">Você deseja sair da sua conta?</string>
     <string name="yes">Sim</string>
     <string name="no">Não</string>
 </resources>
