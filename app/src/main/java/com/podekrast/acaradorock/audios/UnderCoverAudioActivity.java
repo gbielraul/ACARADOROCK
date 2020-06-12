@@ -36,7 +36,7 @@ public class UnderCoverAudioActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_under_cover_audios);
+        setContentView(R.layout.activity_under_cover_audios);
 
         //Recupera a instância do model Audio
         audio = new Audio();

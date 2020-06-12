@@ -36,7 +36,7 @@ public class ClassicsAudioActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_classics_audio);
+        setContentView(R.layout.activity_classics_audio);
 
         //Recupera a instância do model Audio
         audio = new Audio();

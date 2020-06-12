@@ -42,7 +42,7 @@ public class PlayerAudioActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_player_audio);
+        setContentView(R.layout.activity_player_audio);
 
         //Recupera a instância do FirebaseStorage
         mStorage = FirebaseStorage.getInstance();

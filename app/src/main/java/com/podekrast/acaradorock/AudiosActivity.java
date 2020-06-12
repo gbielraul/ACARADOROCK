@@ -22,7 +22,7 @@ public class AudiosActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_audios);
+        setContentView(R.layout.activity_audios);
 
         mBtnBlackSabadle = findViewById(R.id.btn_black_sabadle);
         mBtnMadeInBrazil = findViewById(R.id.btn_made_in_brazil);

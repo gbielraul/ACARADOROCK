@@ -36,7 +36,7 @@ public class GameSoundTrackAudioActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_game_sound_track);
+        setContentView(R.layout.activity_game_sound_track);
 
         //Recupera a instância do model Audio
         audio = new Audio();

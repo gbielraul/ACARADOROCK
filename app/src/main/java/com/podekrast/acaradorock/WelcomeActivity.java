@@ -16,7 +16,7 @@ public class WelcomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_welcome);
+        setContentView(R.layout.activity_welcome);
 
         //Recupera a instância do FirebaseAuth
         mAuth = ConfigFirebase.getAuth();

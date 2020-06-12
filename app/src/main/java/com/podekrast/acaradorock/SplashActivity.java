@@ -14,7 +14,7 @@ public class SplashActivity extends AppCompatActivity implements Runnable {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_splash);
+        setContentView(R.layout.activity_splash);
 
         imgAcdr = findViewById(R.id.img_splash);
 

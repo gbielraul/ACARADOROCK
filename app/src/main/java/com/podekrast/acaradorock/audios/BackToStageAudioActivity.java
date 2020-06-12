@@ -36,7 +36,7 @@ public class BackToStageAudioActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_back_to_stage_audio);
+        setContentView(R.layout.activity_back_to_stage_audio);
 
         //Recupera a RecyclerView
         recyclerView = findViewById(R.id.rv_back_to_stage_audio);

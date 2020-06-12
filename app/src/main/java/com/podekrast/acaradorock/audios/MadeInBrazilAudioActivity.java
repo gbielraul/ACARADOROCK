@@ -36,7 +36,7 @@ public class MadeInBrazilAudioActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_made_in_brazil);
+        setContentView(R.layout.activity_made_in_brazil);
 
         //Recupera a instância do model Audio
         audio = new Audio();
