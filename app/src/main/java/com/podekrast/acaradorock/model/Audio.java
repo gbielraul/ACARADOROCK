@@ -4,26 +4,30 @@ import java.io.Serializable;
 
 public class Audio implements Serializable {
 
-    private String name;
-    private String id;
+    private String programId;
+    private String programTitle;
     private String programName;
-    private String url;
+    private String programDate;
+    private String programUrl;
 
-    public void addAudio(String id, String programName, String name, String url) {
+    /*
+    public void addAudio(String id, String programName, String title, String programDate, String url) {
         this.setId(id);
         this.setProgramName(programName);
-        this.setName(name);
+        this.setTitle(title);
+        this.setProgramDate(programDate);
         this.setUrl(url);
     }
+     */
 
     /*----------------------------------------*/
 
-    public String getUrl() {
-        return url;
+    public String getProgramUrl() {
+        return programUrl;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setProgramUrl(String programUrl) {
+        this.programUrl = programUrl;
     }
 
     public String getProgramName() {
@@ -34,19 +38,27 @@ public class Audio implements Serializable {
         this.programName = programName;
     }
 
-    public String getId() {
-        return id;
+    public String getProgramId() {
+        return programId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setProgramId(String programId) {
+        this.programId = programId;
     }
 
-    public String getName() {
-        return name;
+    public String getProgramTitle() {
+        return programTitle;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setProgramTitle(String programTitle) {
+        this.programTitle = programTitle;
+    }
+
+    public String getProgramDate() {
+        return programDate;
+    }
+
+    public void setProgramDate(String programDate) {
+        this.programDate = programDate;
     }
 }

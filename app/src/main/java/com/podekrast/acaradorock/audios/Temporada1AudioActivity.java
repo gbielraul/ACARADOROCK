@@ -26,9 +26,9 @@ import com.podekrast.acaradorock.adapter.AdapterAudio;
 import com.podekrast.acaradorock.helper.RecyclerItemClickListener;
 import com.podekrast.acaradorock.model.Audio;
 
-public class MadeInBrazilAudioActivity extends AppCompatActivity {
+public class Temporada1AudioActivity extends AppCompatActivity {
 
-    private String programName = "MadeInBrazil";
+    private String programName = "Temporada1";
     private RecyclerView mRecyclerView;
     private DatabaseReference reference;
     private AdapterAudio adapter;
@@ -49,7 +49,7 @@ public class MadeInBrazilAudioActivity extends AppCompatActivity {
         mTxtTitleProgram.setText(programName);
 
         //Adiciona o evento de clique para o botão que retorna para tela anterior
-        mBtnReturn.setOnClickListener(madeInBrazilReturn);
+        mBtnReturn.setOnClickListener(temporada1Return);
 
         //Recupera a instância do model Audio
         audio = new Audio();
@@ -92,7 +92,7 @@ public class MadeInBrazilAudioActivity extends AppCompatActivity {
                 audio.setProgramUrl(audios.get(position).getProgramUrl());
 
                 //Inicia a activity do player
-                Intent intent = new Intent(MadeInBrazilAudioActivity.this, PlayerAudioActivity.class);
+                Intent intent = new Intent(Temporada1AudioActivity.this, PlayerAudioActivity.class);
                 //Passando o título e o do áudio pela Intent para fazer referência
                 intent.putExtra("selectedAudio", audio);
                 //Inicia a Activity
@@ -136,5 +136,5 @@ public class MadeInBrazilAudioActivity extends AppCompatActivity {
     }
 
     //Método que retorna para tela anterior
-    private View.OnClickListener madeInBrazilReturn = v -> finish();
+    private View.OnClickListener temporada1Return = v -> finish();
 }

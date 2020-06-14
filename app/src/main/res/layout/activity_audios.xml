@@ -8,7 +8,7 @@
     tools:context=".AudiosActivity">
 
     <RelativeLayout
-        android:id="@+id/linearLayout2"
+        android:id="@+id/audios_action_bar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@color/colorPrimaryDark"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/btn_voltar_audios"
+            android:id="@+id/btn_return_audios"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_alignParentStart="true"
@@ -26,7 +26,6 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
             android:background="?android:attr/selectableItemBackground"
-            android:onClick="audiosReturn"
             android:padding="10dp"
             android:src="@drawable/ic_arrow_back"
             android:tint="@android:color/white"
@@ -43,8 +42,8 @@
             android:layout_marginTop="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
-            android:layout_toEndOf="@+id/btn_voltar_audios"
-            android:layout_toRightOf="@+id/btn_voltar_audios"
+            android:layout_toEndOf="@+id/btn_return_audios"
+            android:layout_toRightOf="@+id/btn_return_audios"
             android:gravity="center_vertical"
             android:text="@string/audios"
             android:textColor="@android:color/white"
@@ -58,13 +57,13 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linearLayout2">
+        app:layout_constraintTop_toBottomOf="@id/audios_action_bar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
+            <Button
                 android:id="@+id/btn_black_sabadle"
                 android:layout_width="170dp"
                 android:layout_height="170dp"
@@ -73,13 +72,12 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
-                android:src="@drawable/bg_btn_black_sabadle"
+                android:background="@drawable/bg_btn_black_sabadle"
                 app:layout_constraintEnd_toStartOf="@id/guideline"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="ContentDescription" />
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
+            <Button
                 android:id="@+id/btn_made_in_brazil"
                 android:layout_width="170dp"
                 android:layout_height="170dp"
@@ -88,13 +86,12 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
-                android:src="@drawable/bg_btn_made_in_brazil"
+                android:background="@drawable/bg_btn_made_in_brazil"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/guideline"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="ContentDescription" />
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
+            <Button
                 android:id="@+id/btn_feito_no_brasil"
                 android:layout_width="170dp"
                 android:layout_height="170dp"
@@ -103,13 +100,12 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
-                android:src="@drawable/bg_btn_feito_no_brasil"
+                android:background="@drawable/bg_btn_feito_no_brasil"
                 app:layout_constraintEnd_toStartOf="@id/guideline"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_black_sabadle"
-                tools:ignore="ContentDescription" />
+                app:layout_constraintTop_toBottomOf="@id/btn_black_sabadle" />
 
-            <ImageView
+            <Button
                 android:id="@+id/btn_especial"
                 android:layout_width="170dp"
                 android:layout_height="170dp"
@@ -118,13 +114,12 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
-                android:src="@drawable/bg_btn_especial"
+                android:background="@drawable/bg_btn_especial"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/guideline"
-                app:layout_constraintTop_toBottomOf="@id/btn_made_in_brazil"
-                tools:ignore="ContentDescription" />
+                app:layout_constraintTop_toBottomOf="@id/btn_made_in_brazil" />
 
-            <ImageView
+            <Button
                 android:id="@+id/btn_volta_ao_mundo"
                 android:layout_width="170dp"
                 android:layout_height="170dp"
@@ -133,13 +128,12 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
-                android:src="@drawable/bg_btn_volta_ao_mundo"
+                android:background="@drawable/bg_btn_volta_ao_mundo"
                 app:layout_constraintEnd_toStartOf="@id/guideline"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_feito_no_brasil"
-                tools:ignore="ContentDescription" />
+                app:layout_constraintTop_toBottomOf="@id/btn_feito_no_brasil" />
 
-            <ImageView
+            <Button
                 android:id="@+id/btn_a_historia"
                 android:layout_width="170dp"
                 android:layout_height="170dp"
@@ -148,24 +142,22 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
-                android:src="@drawable/ripple_bg_btn_a_historia"
+                android:background="@drawable/ripple_bg_btn_a_historia"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/guideline"
-                app:layout_constraintTop_toBottomOf="@id/btn_especial"
-                tools:ignore="ContentDescription" />
+                app:layout_constraintTop_toBottomOf="@id/btn_especial" />
 
-            <ImageView
+            <Button
                 android:id="@+id/btn_temporada_1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
-                android:src="@drawable/bg_btn_temporada_1"
+                android:background="@drawable/bg_btn_temporada_1"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/btn_a_historia"
                 app:layout_constraintStart_toStartOf="@id/btn_volta_ao_mundo"
-                app:layout_constraintTop_toBottomOf="@id/btn_volta_ao_mundo"
-                tools:ignore="ContentDescription" />
+                app:layout_constraintTop_toBottomOf="@id/btn_volta_ao_mundo" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline"

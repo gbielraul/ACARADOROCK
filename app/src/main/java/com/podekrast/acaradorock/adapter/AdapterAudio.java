@@ -1,53 +1,57 @@
 package com.podekrast.acaradorock.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.podekrast.acaradorock.R;
+import com.podekrast.acaradorock.model.Audio;
 
 import java.util.List;
 
-public class AdapterAudio extends RecyclerView.Adapter<AdapterAudio.MyViewHolder> {
+public class AdapterAudio extends RecyclerView.Adapter<AdapterAudio.AudioViewHolder> {
 
-    private List<String> titles;
-    private Context context;
+    private List<Audio> audios;
 
-    public AdapterAudio(List<String> titles, Context context) {
-        this.titles = titles;
-        this.context = context;
+    public AdapterAudio(List<Audio> audios) {
+        this.audios = audios;
     }
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_audio, parent, false);
-        return new MyViewHolder(itemView);
+    public AudioViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        //Recupera o layout e retorna para o ViewHolder
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_audio, parent, false);
+        return new AudioViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        String title = titles.get(position);
-        holder.txtTitle.setText(title);
+    public void onBindViewHolder(@NonNull AudioViewHolder holder, int position) {
+        //Recupera o titulo do programa e chama o método que adiciona no TextView
+        Audio audio = audios.get(position);
+        holder.bind(audio);
     }
 
     @Override
     public int getItemCount() {
-        return titles.size();
+        return audios.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class AudioViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView txtTitle;
+        private TextView mTxtTitle, mTxtDate;
 
-        public MyViewHolder(@NonNull View itemView) {
+        public AudioViewHolder(@NonNull View itemView) {
             super(itemView);
-            txtTitle = itemView.findViewById(R.id.txt_title_player_audio);
+            mTxtTitle = itemView.findViewById(R.id.txt_title_audio);
+            mTxtDate = itemView.findViewById(R.id.txt_date_audio);
+        }
+
+        void bind(Audio audio) {
+            mTxtTitle.setText(audio.getProgramTitle());
+            mTxtDate.setText(audio.getProgramDate());
         }
     }
 }

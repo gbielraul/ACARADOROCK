@@ -17,18 +17,17 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.podekrast.acaradorock.R;
+import com.podekrast.acaradorock.adapter.AdapterAudio;
 import com.podekrast.acaradorock.helper.ConfigFirebase;
+import com.podekrast.acaradorock.helper.RecyclerItemClickListener;
+import com.podekrast.acaradorock.model.Audio;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.podekrast.acaradorock.adapter.AdapterAudio;
-import com.podekrast.acaradorock.helper.RecyclerItemClickListener;
-import com.podekrast.acaradorock.model.Audio;
+public class FeitoNoBrasilAudioActivity extends AppCompatActivity {
 
-public class MadeInBrazilAudioActivity extends AppCompatActivity {
-
-    private String programName = "MadeInBrazil";
+    private String programName = "FeitoNoBrasil";
     private RecyclerView mRecyclerView;
     private DatabaseReference reference;
     private AdapterAudio adapter;
@@ -49,7 +48,7 @@ public class MadeInBrazilAudioActivity extends AppCompatActivity {
         mTxtTitleProgram.setText(programName);
 
         //Adiciona o evento de clique para o botão que retorna para tela anterior
-        mBtnReturn.setOnClickListener(madeInBrazilReturn);
+        mBtnReturn.setOnClickListener(feitoNoBrasilReturn);
 
         //Recupera a instância do model Audio
         audio = new Audio();
@@ -92,7 +91,7 @@ public class MadeInBrazilAudioActivity extends AppCompatActivity {
                 audio.setProgramUrl(audios.get(position).getProgramUrl());
 
                 //Inicia a activity do player
-                Intent intent = new Intent(MadeInBrazilAudioActivity.this, PlayerAudioActivity.class);
+                Intent intent = new Intent(FeitoNoBrasilAudioActivity.this, PlayerAudioActivity.class);
                 //Passando o título e o do áudio pela Intent para fazer referência
                 intent.putExtra("selectedAudio", audio);
                 //Inicia a Activity
@@ -136,5 +135,5 @@ public class MadeInBrazilAudioActivity extends AppCompatActivity {
     }
 
     //Método que retorna para tela anterior
-    private View.OnClickListener madeInBrazilReturn = v -> finish();
+    private View.OnClickListener feitoNoBrasilReturn = v -> finish();
 }

@@ -3,38 +3,32 @@ package com.podekrast.acaradorock.audios;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.storage.FirebaseStorage;
 import com.podekrast.acaradorock.R;
-import com.podekrast.acaradorock.helper.ConfigFirebase;
 import com.podekrast.acaradorock.model.Audio;
 
 import java.io.IOException;
 
 public class PlayerAudioActivity extends AppCompatActivity {
 
-    private TextView mTxtTitle, mTxtCurrentTime, mTxtDuration;
-    private FirebaseStorage mStorage;
-    private DatabaseReference mReference;
-    private String mAudioUrl, mAudioTitle;
+    private TextView mTxtCurrentTime;
+    private TextView mTxtDuration;
     private MediaPlayer mMediaPlayer;
-    private AudioManager mAudioManager;
     private Button mBtnPlay;
     private RelativeLayout mProgressBar;
+    private String mAudioUrl;
     private SeekBar mSeekBar;
     private Handler mHandler;
 
@@ -44,22 +38,17 @@ public class PlayerAudioActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_audio);
 
-        //Recupera a instância do FirebaseStorage
-        mStorage = FirebaseStorage.getInstance();
-
-        //Recupera o texto que vai aparecer o título da música
-        mTxtTitle = findViewById(R.id.txt_title_player_audio);
-        //Recupera o texto que vai aparecer a tempo atual do áudio
+        //Recupera as Views do XML
+        ImageView mBtnReturn = findViewById(R.id.btn_return_player_audio);
+        TextView mTxtTitle = findViewById(R.id.txt_title_player_audio);
         mTxtCurrentTime = findViewById(R.id.txt_current_time);
-        //Recupera o texto que vai aparecer a duração total do áudio
         mTxtDuration = findViewById(R.id.txt_duration);
-        //Recupera o botão de que vai executar o áudio
         mBtnPlay = findViewById(R.id.btn_play_audio);
-        //Recupera a referência do FirebaseDatabase
-        mReference = ConfigFirebase.getDatabase();
-
-        //Recupera a SeekBar
         mSeekBar = findViewById(R.id.seek_bar_player_audio);
+        mProgressBar = findViewById(R.id.progress_bar_player_audio);
+
+        //Adiciona o evento de clique no botão que retorna para tela anterior
+        mBtnReturn.setOnClickListener(playerAudioReturn);
 
         //Configura a SeekBar
         mSeekBar.setMax(100);
@@ -69,67 +58,47 @@ public class PlayerAudioActivity extends AppCompatActivity {
 
         //Recupera a instância do MediaPlayer
         mMediaPlayer = new MediaPlayer();
-        mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-
-        //Recupera a ProgressBar
-        mProgressBar = findViewById(R.id.progress_bar_player_audio);
 
         //Recupera os dados do áudio
         Intent intent = getIntent();
         Audio audio = (Audio) intent.getSerializableExtra("selectedAudio");
 
         //Recupera o título do áudio
-        mAudioTitle = audio.getName();
+        String mAudioTitle = audio.getProgramTitle();
         //Recupera a url do áudio
-        mAudioUrl = audio.getUrl();
-        //Recupera a duração do áudio
+        mAudioUrl = audio.getProgramUrl();
 
         //Muda o texto para o título do áudio
         mTxtTitle.setText(mAudioTitle);
 
         //Adiciona o evento de clique na SeekBar
-        mSeekBar.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                SeekBar seekBar = (SeekBar) v;
-                int playPosition = (mMediaPlayer.getDuration() / 100) * seekBar.getProgress();
-                mMediaPlayer.seekTo(playPosition);
-                mTxtCurrentTime.setText(convertMillisecond(mMediaPlayer.getCurrentPosition()));
-                return false;
-            }
+        mSeekBar.setOnTouchListener((v, event) -> {
+            SeekBar seekBar = (SeekBar) v;
+            int playPosition = (mMediaPlayer.getDuration() / 100) * seekBar.getProgress();
+            mMediaPlayer.seekTo(playPosition);
+            mTxtCurrentTime.setText(convertMillisecond(mMediaPlayer.getCurrentPosition()));
+            return false;
         });
 
         //Adiciona o evento de clique no botão
-        mBtnPlay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!mMediaPlayer.isPlaying()) {
-                    mMediaPlayer.start();
-                    mBtnPlay.setBackgroundResource(R.drawable.btn_pause);
-                    updateSeekBar();
-                } else {
-                    mHandler.removeCallbacks(updater);
-                    mMediaPlayer.pause();
-                    mBtnPlay.setBackgroundResource(R.drawable.btn_play);
-                }
-            }
-        });
+        mBtnPlay.setOnClickListener(playMusic);
 
+        configureSeekBar();
+    }
+
+    private void configureSeekBar() {
         try {
             mMediaPlayer.setDataSource(mAudioUrl);
             mMediaPlayer.prepareAsync();
 
-            mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                @Override
-                public void onPrepared(MediaPlayer mp) {
-                    //Ativa o botão
-                    mBtnPlay.setEnabled(true);
-                    //Torna a ProgressBar invisível
-                    mProgressBar.setVisibility(View.GONE);
-                    //Recupera a duração do áudio e coloca no texto
-                    mTxtDuration.setText(convertMillisecond(mMediaPlayer.getDuration()));
-                }
+            mMediaPlayer.setOnPreparedListener(mp -> {
+                //Ativa o botão
+                mBtnPlay.setEnabled(true);
+                //Torna a ProgressBar invisível
+                mProgressBar.setVisibility(View.GONE);
+                //Recupera a duração do áudio e coloca no texto
+                mTxtDuration.setText(convertMillisecond(mMediaPlayer.getDuration()));
             });
         } catch (IOException e) {
             e.printStackTrace();
@@ -145,6 +114,18 @@ public class PlayerAudioActivity extends AppCompatActivity {
             //Recupera o tempo atual e coloca no texto
             long currentTime = mMediaPlayer.getCurrentPosition();
             mTxtCurrentTime.setText(convertMillisecond(currentTime));
+        }
+    };
+
+    private View.OnClickListener playMusic = v -> {
+        if (!mMediaPlayer.isPlaying()) {
+            mMediaPlayer.start();
+            mBtnPlay.setBackgroundResource(R.drawable.btn_pause);
+            updateSeekBar();
+        } else {
+            mHandler.removeCallbacks(updater);
+            mMediaPlayer.pause();
+            mBtnPlay.setBackgroundResource(R.drawable.btn_play);
         }
     };
 
@@ -200,9 +181,7 @@ public class PlayerAudioActivity extends AppCompatActivity {
     }
 
     //Método que retorna para a tela anterior
-    public void playerAudioReturn(View view) {
-        finish();
-    }
+    private View.OnClickListener playerAudioReturn = v -> finish();
 
     @Override
     protected void onRestart() {

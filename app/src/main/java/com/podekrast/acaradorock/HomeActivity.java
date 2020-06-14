@@ -2,16 +2,17 @@ package com.podekrast.acaradorock;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,8 +26,8 @@ public class HomeActivity extends AppCompatActivity {
     private DatabaseReference mReference;
     private double mCurrentVersion;
     private RelativeLayout mUpdateScreen;
-    private ScrollView mScrollViewHome;
-    private LinearLayout mBtnLogout;
+    private ScrollView mScrollView;
+    private LinearLayout mBtnSignOut;
     private String downloadUrl;
     private ProgressBar mProgressBarHome;
 
@@ -43,18 +44,35 @@ public class HomeActivity extends AppCompatActivity {
         //Recupera a referência do Firebase Database
         mReference = ConfigFirebase.getDatabase();
 
-        //Recupera a tela de atualização
+        //Recupera as Views do XML
         mUpdateScreen = findViewById(R.id.update_screen);
-        //Recupera o ScrollView
-        mScrollViewHome = findViewById(R.id.scrollView_home);
-        //Recupera o botão de Logout
-        mBtnLogout = findViewById(R.id.btn_logout);
-
-        //Recupera a ProgressBar
+        mScrollView = findViewById(R.id.scrollView_home);
+        mBtnSignOut = findViewById(R.id.btn_sign_out);
+        ImageView mBtnAudios = findViewById(R.id.btn_audios);
+        ImageView mBtnRadioApp = findViewById(R.id.btn_radio_app);
+        ImageView mBtnTvsPage = findViewById(R.id.btn_tvs);
+        ImageView mBtnAcdrPage = findViewById(R.id.btn_acdr_page);
+        ImageView mBtnPdkInsta = findViewById(R.id.btn_podekre_instagram);
+        ImageView mBtnPdkChannel = findViewById(R.id.btn_podekre_channel);
         mProgressBarHome = findViewById(R.id.progress_bar_home);
 
         //Chama o método que verifica a versão do app
         verifyVersion();
+
+        //Adiciona o evento de clique que sai da conta do usuário
+        mBtnSignOut.setOnClickListener(signOut);
+        //Adiciona o evento de clique que chama AudiosActivity
+        mBtnAudios.setOnClickListener(openAudiosActivity);
+        //Adiciona o evento de clique que vai para o aplicativo da radio
+        mBtnRadioApp.setOnClickListener(openRadioApp);
+        //Adiciona o evento de clique que vai para a pagina da TV Sobrinho
+        mBtnTvsPage.setOnClickListener(openTVSobrinhoPage);
+        //Adiciona o evento de clique que vai para a pagina da A Cara do Rock
+        mBtnAcdrPage.setOnClickListener(openACDRPage);
+        //Adiciona o evento de clique que vai para o instagram do Podekre
+        mBtnPdkInsta.setOnClickListener(openPodekreInstagram);
+        //Adiciona o evento de clique que vai para o canal no Youtube do Podekre
+        mBtnPdkChannel.setOnClickListener(openPodekreChannel);
     }
 
     //Método que verifica a versão do app
@@ -66,23 +84,24 @@ public class HomeActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 //Recupera a versão atualizada
                 double updatedVersion = dataSnapshot.child("version").getValue(double.class);
+
                 //Recupera a url do download
                 downloadUrl = dataSnapshot.child("downloadUrl").getValue(String.class);
                 //Se a versão atual for menor que a versão atualizada
                 if (mCurrentVersion < updatedVersion) {
                     //Torna invisivel o ScrollView
-                    mScrollViewHome.setVisibility(View.INVISIBLE);
+                    mScrollView.setVisibility(View.INVISIBLE);
                     //Torna invisivel o botão de Logout
-                    mBtnLogout.setVisibility(View.INVISIBLE);
+                    mBtnSignOut.setVisibility(View.INVISIBLE);
                     //Torna visivel a tela de atualização
                     mUpdateScreen.setVisibility(View.VISIBLE);
                     //Torna a ProgressBar invisivel
                     mProgressBarHome.setVisibility(View.INVISIBLE);
                 } else {
                     //Torna visivel o ScrollView
-                    mScrollViewHome.setVisibility(View.VISIBLE);
+                    mScrollView.setVisibility(View.VISIBLE);
                     //Torna visivel o botão de Logout
-                    mBtnLogout.setVisibility(View.VISIBLE);
+                    mBtnSignOut.setVisibility(View.VISIBLE);
                     //Torna invisivel a tela de atualização
                     mUpdateScreen.setVisibility(View.GONE);
                     //Torna a ProgressBar invisivel
@@ -105,62 +124,64 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     //Método que realiza o LogOut
-    public void logOut(View view) {
+    private View.OnClickListener signOut = v -> {
+        //Instancia um AlertDialog perguntando se realmente deseja sair da conta
+        new AlertDialog.Builder(HomeActivity.this)
+                .setTitle(R.string.logout_dialog_title)
+                .setMessage(R.string.logout_dialog_message)
+                .setPositiveButton(R.string.yes, (DialogInterface dialog, int which) -> {
 
-        //Realiza o LogOut
-        mAuth.signOut();
+                    //Realiza o LogOut
+                    mAuth.signOut();
+                    //Volta para a tela de LogIn
+                    Intent intent = new Intent(HomeActivity.this, WelcomeActivity.class);
+                    startActivity(intent);
+                    finish();
+                })
+                .setNegativeButton(R.string.no, null)
+                .create()
+                .show();
 
-        //Volta para a tela de LogIn
-        Intent intent = new Intent(HomeActivity.this, WelcomeActivity.class);
-        startActivity(intent);
-        finish();
-    }
+    };
 
     //Método que chama a Activity de áudios
-    public void audios(View view) {
-
+    private View.OnClickListener openAudiosActivity = v -> {
         //Chama a Activity de áudios
-        Intent intent = new Intent(HomeActivity.this, AudiosActivity.class);
-        startActivity(intent);
-    }
+        startActivity(new Intent(HomeActivity.this, AudiosActivity.class));
+    };
 
     //Método que vai para o app da rádio na PlayStore
-    public void openRadioApp(View view) {
-
+    private View.OnClickListener openRadioApp = v -> {
         //Vai para o app Rádio Joiville.net na PlayStore
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.webradiocast.ovjhvkynchtq"));
-        startActivity(intent);
-    }
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.webradiocast.ovjhvkynchtq")));
+    };
 
     //Método que abre a página da TV Sobrinho MS
-    public void openTVSobrinhoPage(View view) {
+    private View.OnClickListener openTVSobrinhoPage = v -> {
 
         //Abre a página da TV Sobrinho MS
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/tvsobrinhoms/"));
         startActivity(intent);
-    }
+    };
 
     //Método que abre a página da A Cara do Rock
-    public void openACDRPage(View view) {
-
+    private View.OnClickListener openACDRPage = v -> {
         //Abre a página da A Cara do Rock
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/acaradorock/"));
         startActivity(intent);
-    }
+    };
 
     //Método que abre o Instagram da A Cara do Rock
-    public void openPodekreInstagram(View view) {
-
+    private View.OnClickListener openPodekreInstagram = v -> {
         //Abre o Instagram da A Cara do Rock
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.instagram.com/podekre/"));
         startActivity(intent);
-    }
+    };
 
     //Método que abre o Youtube da A Cara do Rock
-    public void openPodekreChannel(View view) {
-
+    private View.OnClickListener openPodekreChannel = v -> {
         //Abre o Youtube da A Cara do Rock
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/channel/UCC0F9GYaa6OZk_FTwZgz09A"));
         startActivity(intent);
-    }
+    };
 }

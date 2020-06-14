@@ -9,7 +9,9 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,7 +30,8 @@ public class SignUpActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private EditText mEdtName, mEdtEmail, mEdtPassword;
     private User mUser;
-    private RelativeLayout mProgressBar;
+    private TextView mTxtSignUp;
+    private ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +48,10 @@ public class SignUpActivity extends AppCompatActivity {
         mEdtName = findViewById(R.id.edt_name_sign_up);
         mEdtEmail = findViewById(R.id.edt_email_sign_up);
         mEdtPassword = findViewById(R.id.edt_password_sign_up);
-        Button mBtnSignUp = findViewById(R.id.btn_sign_up);
+        ImageView mBtnSignUp = findViewById(R.id.btn_sign_up);
         Button mBtnReturn = findViewById(R.id.btn_return_sign_up);
-        mProgressBar = findViewById(R.id.progress_bar_register);
+        mTxtSignUp = findViewById(R.id.txt_sign_up);
+        mProgressBar = findViewById(R.id.progress_bar_sign_up);
 
         //Adiciona o evento de clique para registrar o usuário
         mBtnSignUp.setOnClickListener(signUp);
@@ -71,14 +75,16 @@ public class SignUpActivity extends AppCompatActivity {
         String fieldEmail = mEdtEmail.getText().toString();
         String fieldPassword = mEdtPassword.getText().toString();
 
-        //Torna a ProgressBar ativa
+        //Ativa a progressBar e desativa o texto do botão
         mProgressBar.setVisibility(View.VISIBLE);
+        mTxtSignUp.setVisibility(View.GONE);
 
         //Valida se as caixas de text o estão preenchidas
         if (fieldName.isEmpty() || fieldEmail.isEmpty() || fieldPassword.isEmpty()) {
 
-            //Torna a ProgressBar inativa
+            //Desativa a progressBar e ativa o texto do botão
             mProgressBar.setVisibility(View.GONE);
+            mTxtSignUp.setVisibility(View.VISIBLE);
 
             //Se o e-mail ou a senha estiver vazio exibe um Toast
             Toast.makeText(SignUpActivity.this, "Preencha todos os campos!", Toast.LENGTH_SHORT).show();
@@ -121,7 +127,9 @@ public class SignUpActivity extends AppCompatActivity {
                             error = "Erro inesperado! Por favor, tente novamente!";
                         }
 
+                        //Desativa a progressBar e ativa o texto do botão
                         mProgressBar.setVisibility(View.GONE);
+                        mTxtSignUp.setVisibility(View.VISIBLE);
                         //Exibe um Toast com a mensagem de erro
                         Toast.makeText(SignUpActivity.this, error, Toast.LENGTH_LONG).show();
                     }

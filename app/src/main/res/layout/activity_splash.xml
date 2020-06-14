@@ -8,14 +8,15 @@
     tools:context=".SplashActivity">
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/img_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/bg_gradient_primary" />
+        app:srcCompat="@drawable/bg_gradient_primary"
+        tools:ignore="ContentDescription" />
 
     <ImageView
         android:layout_width="0dp"
@@ -29,5 +30,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/acdr_login_90o" />
+        app:srcCompat="@drawable/acdr_login_90o"
+        tools:ignore="ContentDescription" />
 </androidx.constraintlayout.widget.ConstraintLayout>

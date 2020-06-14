@@ -20,14 +20,14 @@
             android:value="ca-app-pub-6206215521622619~6830012632" />
 
         <activity android:name=".WelcomeActivity" />
-        <activity android:name=".audios.TributeAudioActivity" />
-        <activity android:name=".audios.GameSoundTrackAudioActivity" />
+        <activity android:name=".audios.Temporada1AudioActivity" />
+        <activity android:name=".audios.AHistoriaAudioActivity" />
         <activity android:name=".audios.MadeInBrazilAudioActivity" />
-        <activity android:name=".audios.UnderCoverAudioActivity" />
-        <activity android:name=".audios.ClassicsAudioActivity" />
-        <activity android:name=".audios.BackToStageAudioActivity" />
+        <activity android:name=".audios.VoltaAoMundoAudioActivity" />
+        <activity android:name=".audios.EspecialAudioActivity" />
+        <activity android:name=".audios.FeitoNoBrasilAudioActivity" />
         <activity android:name=".audios.PlayerAudioActivity" />
-        <activity android:name=".audios.RockRollaAudioActivity" />
+        <activity android:name=".audios.BlackSabadleAudioActivity" />
         <activity android:name=".AudiosActivity" />
         <activity android:name=".SplashActivity">
             <intent-filter>

@@ -37,7 +37,6 @@ public class WelcomeActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
         //Chama o método que verfica se o usuário está logado
         verifyUser();
     }

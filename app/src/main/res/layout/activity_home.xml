@@ -8,14 +8,13 @@
     tools:context=".HomeActivity">
 
     <LinearLayout
-        android:id="@+id/btn_logout"
+        android:id="@+id/btn_sign_out"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/bg_logout"
-        android:onClick="logOut"
         android:orientation="horizontal"
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,7 +40,7 @@
             android:layout_marginRight="16dp"
             android:layout_weight="0"
             android:gravity="center"
-            android:text="Sair"
+            android:text="@string/sign_out"
             android:textColor="@android:color/white"
             android:textSize="18sp" />
     </LinearLayout>
@@ -55,11 +54,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_logout">
+        app:layout_constraintTop_toBottomOf="@+id/btn_sign_out">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <RelativeLayout
                 android:id="@+id/linear_audios"
@@ -69,7 +68,6 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
                 android:background="@drawable/bg_btn_3d"
-                android:onClick="openRadioApp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.488"
                 app:layout_constraintStart_toStartOf="parent"
@@ -86,11 +84,11 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
                     android:background="?android:attr/selectableItemBackground"
-                    android:onClick="audios"
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp"
                     android:tint="@android:color/white"
-                    app:srcCompat="@drawable/btn_audios" />
+                    app:srcCompat="@drawable/btn_audios"
+                    tools:ignore="ContentDescription" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -101,7 +99,6 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
                 android:background="@drawable/bg_btn_3d"
-                android:onClick="openRadioApp"
                 app:layout_constraintEnd_toStartOf="@+id/linear_tvs"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_chainStyle="packed"
@@ -109,7 +106,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/linear_audios">
 
                 <ImageView
-                    android:id="@+id/imageView6"
+                    android:id="@+id/btn_radio_app"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:layout_centerInParent="true"
@@ -117,7 +114,8 @@
                     android:layout_marginTop="32dp"
                     android:background="?android:attr/selectableItemBackground"
                     android:padding="8dp"
-                    app:srcCompat="@drawable/radio_logo" />
+                    app:srcCompat="@drawable/radio_logo"
+                    tools:ignore="ContentDescription" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -128,14 +126,13 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="32dp"
                 android:background="@drawable/bg_btn_3d"
-                android:onClick="openTVSobrinhoPage"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/linear_radio"
                 app:layout_constraintTop_toBottomOf="@+id/linear_audios">
 
                 <ImageView
-                    android:id="@+id/img_header_sign_up"
+                    android:id="@+id/btn_tvs"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:layout_centerInParent="true"
@@ -143,11 +140,12 @@
                     android:layout_marginTop="32dp"
                     android:background="?android:attr/selectableItemBackground"
                     android:padding="8dp"
-                    app:srcCompat="@drawable/tvs_logo" />
+                    app:srcCompat="@drawable/tvs_logo"
+                    tools:ignore="ContentDescription" />
             </RelativeLayout>
 
             <ImageView
-                android:id="@+id/imageView5"
+                android:id="@+id/btn_acdr_page"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_centerInParent="true"
@@ -155,32 +153,32 @@
                 android:layout_centerVertical="true"
                 android:layout_gravity="center"
                 android:background="?android:attr/selectableItemBackground"
-                android:onClick="openACDRPage"
-                app:layout_constraintBottom_toBottomOf="@id/imageView4"
-                app:layout_constraintEnd_toStartOf="@+id/imageView4"
+                app:layout_constraintBottom_toBottomOf="@id/btn_podekre_channel"
+                app:layout_constraintEnd_toStartOf="@+id/btn_podekre_channel"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/imageView4"
-                app:srcCompat="@drawable/facebook_logo" />
+                app:layout_constraintTop_toTopOf="@+id/btn_podekre_channel"
+                app:srcCompat="@drawable/facebook_logo"
+                tools:ignore="ContentDescription" />
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/btn_podekre_instagram"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_centerInParent="true"
                 android:layout_gravity="center"
                 android:background="?android:attr/selectableItemBackground"
-                android:onClick="openPodekreInstagram"
-                app:layout_constraintBottom_toBottomOf="@id/imageView4"
+                app:layout_constraintBottom_toBottomOf="@id/btn_podekre_channel"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/imageView4"
-                app:layout_constraintTop_toTopOf="@+id/imageView4"
-                app:srcCompat="@drawable/insta_logo" />
+                app:layout_constraintStart_toEndOf="@+id/btn_podekre_channel"
+                app:layout_constraintTop_toTopOf="@+id/btn_podekre_channel"
+                app:srcCompat="@drawable/insta_logo"
+                tools:ignore="ContentDescription" />
 
             <ImageView
-                android:id="@+id/imageView4"
+                android:id="@+id/btn_podekre_channel"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_centerVertical="true"
@@ -189,25 +187,25 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginRight="16dp"
                 android:background="?android:attr/selectableItemBackground"
-                android:onClick="openPodekreChannel"
-                app:layout_constraintEnd_toStartOf="@+id/imageView3"
+                app:layout_constraintEnd_toStartOf="@+id/btn_podekre_instagram"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/imageView5"
+                app:layout_constraintStart_toEndOf="@+id/btn_acdr_page"
                 app:layout_constraintTop_toBottomOf="@+id/linear_radio"
-                app:srcCompat="@drawable/youtube_logo" />
+                app:srcCompat="@drawable/youtube_logo"
+                tools:ignore="ContentDescription" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/txt_developer"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:gravity="center"
-                android:text="Desenvolvido por Gabriel Raul"
+                android:text="@string/developer"
                 android:textColor="#959595"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+                app:layout_constraintTop_toBottomOf="@+id/btn_podekre_channel" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
@@ -227,7 +225,8 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_margin="16dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            tools:ignore="UselessParent">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -235,7 +234,7 @@
                 android:background="@drawable/red_rounded"
                 android:gravity="center"
                 android:padding="16dp"
-                android:text="NOVA ATUALIZAÇÃO DISPONIVEL!"
+                android:text="@string/new_update_available"
                 android:textColor="@android:color/black"
                 android:textSize="28sp"
                 android:textStyle="bold" />
@@ -248,7 +247,7 @@
                 android:gravity="center"
                 android:onClick="updateApp"
                 android:padding="16dp"
-                android:text="ATUALIZAR AGORA"
+                android:text="@string/update_now"
                 android:textColor="@android:color/holo_blue_dark"
                 android:textSize="18sp" />
         </LinearLayout>

@@ -2,16 +2,16 @@ package com.podekrast.acaradorock;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -24,7 +24,8 @@ public class SignInActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private EditText mEdtEmail, mEdtPassword;
-    private RelativeLayout mProgressBar;
+    private TextView mTxtSignIn;
+    private ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +38,10 @@ public class SignInActivity extends AppCompatActivity {
         //Recupera as Views do XML
         mEdtEmail = findViewById(R.id.edt_email_sign_in);
         mEdtPassword = findViewById(R.id.edt_password_sign_in);
-        Button mBtnSignIn = findViewById(R.id.btn_sign_in);
+        ImageView mBtnSignIn = findViewById(R.id.btn_sign_in);
         Button mBtnReturn = findViewById(R.id.btn_return_sign_in);
-        mProgressBar = findViewById(R.id.progress_bar_login);
+        mTxtSignIn = findViewById(R.id.txt_sign_in);
+        mProgressBar = findViewById(R.id.progress_bar_sign_in);
 
         //Adiciona o evento de clique para realizar o login
         mBtnSignIn.setOnClickListener(signIn);
@@ -49,7 +51,6 @@ public class SignInActivity extends AppCompatActivity {
 
     //Realiza o login do usuário
     private View.OnClickListener signIn = v -> {
-
         //Recupera o gerenciador de método de entrada
         InputMethodManager im = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         //Se im for diferente de nulo, oculta o teclado
@@ -62,16 +63,18 @@ public class SignInActivity extends AppCompatActivity {
         String fieldEmail = mEdtEmail.getText().toString();
         String fieldPassword = mEdtPassword.getText().toString();
 
-        //Ativa a progressBar
+        //Ativa a progressBar e desativa o texto do botão
         mProgressBar.setVisibility(View.VISIBLE);
+        mTxtSignIn.setVisibility(View.GONE);
 
         //Chama o método que valida se os campos estão preenchidas
         if (fieldEmail.isEmpty() || fieldPassword.isEmpty()) {
             //Se o e-mail ou a senha estiver vazio exibe um Toast
             Toast.makeText(SignInActivity.this, R.string.validate, Toast.LENGTH_SHORT).show();
 
-            //Desativa a progressBar
+            //Desativa a progressBar e ativa o texto do botão
             mProgressBar.setVisibility(View.GONE);
+            mTxtSignIn.setVisibility(View.VISIBLE);
         } else {
             //Se todas as caixas de texto estiver preenchidas, realiza o login do usuário
             mAuth.signInWithEmailAndPassword(fieldEmail, fieldPassword)
@@ -100,8 +103,9 @@ public class SignInActivity extends AppCompatActivity {
                                     error = "Erro inesperado! Por favor, tente novamente!";
                                 }
 
-                                //Desativa a progressBar
+                                //Desativa a progressBar e ativa o texto do botão
                                 mProgressBar.setVisibility(View.GONE);
+                                mTxtSignIn.setVisibility(View.VISIBLE);
                                 //Exibe um Toast com a mensagem de erro
                                 Toast.makeText(SignInActivity.this, error, Toast.LENGTH_LONG).show();
                             }

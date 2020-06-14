@@ -17,4 +17,8 @@
     <string name="no">Não</string>
     <string name="click_on_one_of_the_buttons_below">Clique em um dos botões abaixo</string>
     <string name="validate">Preencha todos os campos!</string>
+    <string name="developer">Desenvolvido por Gabriel Raul</string>
+    <string name="sign_out">Sair</string>
+    <string name="new_update_available">NOVA ATUALIZAÇÃO DISPONIVEL!</string>
+    <string name="update_now">ATUALIZAR AGORA</string>
 </resources>

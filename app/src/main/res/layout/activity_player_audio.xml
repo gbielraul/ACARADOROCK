@@ -8,36 +8,36 @@
     tools:context=".audios.PlayerAudioActivity">
 
     <LinearLayout
-        android:id="@+id/linearLayout3"
+        android:id="@+id/player_audio_action_bar"
         android:layout_width="0dp"
         android:layout_height="55dp"
         android:background="@color/colorPrimary"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/btn_voltar_player_audio"
+            android:id="@+id/btn_return_player_audio"
             android:layout_width="55dp"
             android:layout_height="55dp"
             android:background="?attr/selectableItemBackground"
-            android:onClick="playerAudioReturn"
             android:padding="10dp"
             android:src="@drawable/ic_arrow_back"
-            android:tint="@color/colorAccent" />
+            android:tint="@android:color/white"
+            tools:ignore="ContentDescription" />
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/img_vinyl"
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linearLayout3"
-        app:srcCompat="@drawable/disco_vinil" />
+        app:layout_constraintTop_toBottomOf="@id/player_audio_action_bar"
+        app:srcCompat="@drawable/disco_vinil"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/txt_title_player_audio"
@@ -47,36 +47,37 @@
         android:layout_marginLeft="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
-        android:text="Título"
+        android:layout_marginBottom="32dp"
         android:textColor="@android:color/white"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_play_audio"
-        app:layout_constraintEnd_toEndOf="@+id/imageView4"
-        app:layout_constraintStart_toStartOf="@+id/imageView4"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintBottom_toTopOf="@id/seek_bar_player_audio"
+        app:layout_constraintEnd_toEndOf="@id/img_vinyl"
+        app:layout_constraintStart_toStartOf="@id/img_vinyl"
+        tools:text="Título" />
 
     <TextView
         android:id="@+id/txt_current_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
         android:layout_marginBottom="8dp"
-        android:text="00:00"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toTopOf="@id/seek_bar_player_audio"
-        app:layout_constraintLeft_toLeftOf="@id/seek_bar_player_audio" />
+        app:layout_constraintLeft_toLeftOf="@id/seek_bar_player_audio"
+        tools:text="00:00" />
 
     <TextView
         android:id="@+id/txt_duration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
         android:layout_marginBottom="8dp"
-        android:text="00:00"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toTopOf="@id/seek_bar_player_audio"
-        app:layout_constraintRight_toRightOf="@id/seek_bar_player_audio" />
+        app:layout_constraintRight_toRightOf="@id/seek_bar_player_audio"
+        tools:text="00:00" />
 
     <SeekBar
         android:id="@+id/seek_bar_player_audio"
@@ -89,7 +90,7 @@
         android:layout_marginBottom="32dp"
         android:progressDrawable="@drawable/semi_rounded"
         android:thumb="@drawable/custom_thumb"
-        app:layout_constraintBottom_toTopOf="@+id/btn_play_audio"
+        app:layout_constraintBottom_toTopOf="@id/btn_play_audio"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
