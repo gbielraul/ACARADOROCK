@@ -7,48 +7,15 @@
     android:background="@color/colorPrimary"
     tools:context=".AudiosActivity">
 
-    <RelativeLayout
-        android:id="@+id/audios_action_bar"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_audios"
+        android:layout_width="0dp"
+        android:layout_height="?android:attr/actionBarSize"
         android:background="@color/colorPrimaryDark"
-        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/btn_return_audios"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentBottom="true"
-            android:background="?android:attr/selectableItemBackground"
-            android:padding="10dp"
-            android:src="@drawable/ic_arrow_back"
-            android:tint="@android:color/white"
-            tools:ignore="ContentDescription" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginBottom="8dp"
-            android:layout_toEndOf="@+id/btn_return_audios"
-            android:layout_toRightOf="@+id/btn_return_audios"
-            android:gravity="center_vertical"
-            android:text="@string/audios"
-            android:textColor="@android:color/white"
-            android:textSize="30sp" />
-    </RelativeLayout>
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextColor="@color/white" />
 
     <ScrollView
         android:layout_width="0dp"
@@ -57,7 +24,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/audios_action_bar">
+        app:layout_constraintTop_toBottomOf="@id/toolbar_audios">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

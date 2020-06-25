@@ -1,62 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/colorPrimary">
 
-    <RelativeLayout
-        android:id="@+id/audio_action_bar"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_audio"
         android:layout_width="0dp"
-        android:layout_height="60dp"
+        android:layout_height="?android:attr/actionBarSize"
         android:background="@color/colorPrimaryDark"
-        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/btn_return_audio"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentBottom="true"
-            android:background="?android:attr/selectableItemBackground"
-            android:padding="10dp"
-            android:src="@drawable/ic_arrow_back"
-            android:tint="@android:color/white"
-            tools:ignore="ContentDescription" />
-
-        <TextView
-            android:id="@+id/txt_title_program"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginBottom="8dp"
-            android:layout_toRightOf="@id/btn_return_audio"
-            android:layout_toEndOf="@id/btn_return_audio"
-            android:gravity="center_vertical"
-            tools:text="Título do programa"
-            android:textColor="@android:color/white"
-            android:textSize="30sp" />
-    </RelativeLayout>
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextColor="@color/white" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_audio"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        tools:listitem="@layout/item_audio"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/audio_action_bar" />
+        app:layout_constraintTop_toBottomOf="@id/toolbar_audio" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

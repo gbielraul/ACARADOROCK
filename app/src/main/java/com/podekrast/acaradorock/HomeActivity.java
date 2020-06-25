@@ -1,63 +1,55 @@
 package com.podekrast.acaradorock;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import android.app.AlertDialog;
+import androidx.core.content.ContextCompat;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.podekrast.acaradorock.config.App;
 import com.podekrast.acaradorock.helper.ConfigFirebase;
 
 public class HomeActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    private DatabaseReference mReference;
-    private double mCurrentVersion;
-    private RelativeLayout mUpdateScreen;
-    private ScrollView mScrollView;
-    private LinearLayout mBtnSignOut;
-    private String downloadUrl;
-    private ProgressBar mProgressBarHome;
+    private ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        //Indica a versão atual do app
-        mCurrentVersion = 1;
-
         //Recupera a instância do Firebase Auth
-        mAuth = ConfigFirebase.getAuth();
-        //Recupera a referência do Firebase Database
-        mReference = ConfigFirebase.getDatabase();
+        mAuth = ConfigFirebase.getFirebaseAuth();
 
-        //Recupera as Views do XML
-        mUpdateScreen = findViewById(R.id.update_screen);
-        mScrollView = findViewById(R.id.scrollView_home);
-        mBtnSignOut = findViewById(R.id.btn_sign_out);
+        mProgressBar = findViewById(R.id.progress_bar_home);
+        LinearLayout mBtnSignOut = findViewById(R.id.btn_sign_out);
         ImageView mBtnAudios = findViewById(R.id.btn_audios);
         ImageView mBtnRadioApp = findViewById(R.id.btn_radio_app);
         ImageView mBtnTvsPage = findViewById(R.id.btn_tvs);
         ImageView mBtnAcdrPage = findViewById(R.id.btn_acdr_page);
         ImageView mBtnPdkInsta = findViewById(R.id.btn_podekre_instagram);
         ImageView mBtnPdkChannel = findViewById(R.id.btn_podekre_channel);
-        mProgressBarHome = findViewById(R.id.progress_bar_home);
 
-        //Chama o método que verifica a versão do app
-        verifyVersion();
+        //Muda a cor da progressBar
+        App.setProgressBarColor(mProgressBar, ContextCompat.getColor(HomeActivity.this, R.color.white));
 
         //Adiciona o evento de clique que sai da conta do usuário
         mBtnSignOut.setOnClickListener(signOut);
@@ -75,20 +67,43 @@ public class HomeActivity extends AppCompatActivity {
         mBtnPdkChannel.setOnClickListener(openPodekreChannel);
     }
 
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        //Chama o método que verifica a versão do app
+        verifyVersion();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        verifyVersion();
+    }
+
     //Método que verifica a versão do app
     private void verifyVersion() {
         //Recupera a referência para recuperar a versão atualizada
-        DatabaseReference ref = mReference.child("config");
+        DatabaseReference ref = ConfigFirebase.getDbReference().child("config");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                //Recupera a versão atual do app
+                double appVersion = App.APP_VERSION;
+
                 //Recupera a versão atualizada
                 double updatedVersion = dataSnapshot.child("version").getValue(double.class);
 
                 //Recupera a url do download
-                downloadUrl = dataSnapshot.child("downloadUrl").getValue(String.class);
+                String downloadUrl = dataSnapshot.child("downloadUrl").getValue(String.class);
+
+                //Recupera as Views XML
+                LinearLayout mBtnSignOut = findViewById(R.id.btn_sign_out);
+                ScrollView mScrollView = findViewById(R.id.scrollView_home);
+                RelativeLayout mUpdateScreen = findViewById(R.id.update_screen);
+                Button mBtnUpdate = findViewById(R.id.btn_update_now);
+
                 //Se a versão atual for menor que a versão atualizada
-                if (mCurrentVersion < updatedVersion) {
+                if (appVersion < updatedVersion) {
                     //Torna invisivel o ScrollView
                     mScrollView.setVisibility(View.INVISIBLE);
                     //Torna invisivel o botão de Logout
@@ -96,7 +111,13 @@ public class HomeActivity extends AppCompatActivity {
                     //Torna visivel a tela de atualização
                     mUpdateScreen.setVisibility(View.VISIBLE);
                     //Torna a ProgressBar invisivel
-                    mProgressBarHome.setVisibility(View.INVISIBLE);
+                    mProgressBar.setVisibility(View.INVISIBLE);
+                    //Adiciona um evento de clique no botão de atualização
+                    mBtnUpdate.setOnClickListener((v) -> {
+                        //Vai para o link de download
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(downloadUrl));
+                        startActivity(intent);
+                    });
                 } else {
                     //Torna visivel o ScrollView
                     mScrollView.setVisibility(View.VISIBLE);
@@ -105,7 +126,7 @@ public class HomeActivity extends AppCompatActivity {
                     //Torna invisivel a tela de atualização
                     mUpdateScreen.setVisibility(View.GONE);
                     //Torna a ProgressBar invisivel
-                    mProgressBarHome.setVisibility(View.INVISIBLE);
+                    mProgressBar.setVisibility(View.INVISIBLE);
                 }
             }
 
@@ -114,13 +135,6 @@ public class HomeActivity extends AppCompatActivity {
 
             }
         });
-    }
-
-    //Método que atualiza o app
-    public void updateApp(View view) {
-        //Vai para o link de download
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(downloadUrl));
-        startActivity(intent);
     }
 
     //Método que realiza o LogOut

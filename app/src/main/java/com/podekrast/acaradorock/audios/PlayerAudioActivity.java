@@ -1,21 +1,23 @@
 package com.podekrast.acaradorock.audios;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.podekrast.acaradorock.R;
 import com.podekrast.acaradorock.model.Audio;
 
@@ -27,7 +29,7 @@ public class PlayerAudioActivity extends AppCompatActivity {
     private TextView mTxtDuration;
     private MediaPlayer mMediaPlayer;
     private Button mBtnPlay;
-    private RelativeLayout mProgressBar;
+    private ProgressBar mProgressBar;
     private String mAudioUrl;
     private SeekBar mSeekBar;
     private Handler mHandler;
@@ -38,17 +40,21 @@ public class PlayerAudioActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_audio);
 
+        Toolbar toolbar = findViewById(R.id.toolbar_player_audio);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(null);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back);
+        }
+
         //Recupera as Views do XML
-        ImageView mBtnReturn = findViewById(R.id.btn_return_player_audio);
         TextView mTxtTitle = findViewById(R.id.txt_title_player_audio);
         mTxtCurrentTime = findViewById(R.id.txt_current_time);
         mTxtDuration = findViewById(R.id.txt_duration);
         mBtnPlay = findViewById(R.id.btn_play_audio);
         mSeekBar = findViewById(R.id.seek_bar_player_audio);
         mProgressBar = findViewById(R.id.progress_bar_player_audio);
-
-        //Adiciona o evento de clique no botão que retorna para tela anterior
-        mBtnReturn.setOnClickListener(playerAudioReturn);
 
         //Configura a SeekBar
         mSeekBar.setMax(100);
@@ -87,6 +93,14 @@ public class PlayerAudioActivity extends AppCompatActivity {
         configureSeekBar();
     }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return true;
+    }
+
     private void configureSeekBar() {
         try {
             mMediaPlayer.setDataSource(mAudioUrl);
@@ -95,8 +109,9 @@ public class PlayerAudioActivity extends AppCompatActivity {
             mMediaPlayer.setOnPreparedListener(mp -> {
                 //Ativa o botão
                 mBtnPlay.setEnabled(true);
-                //Torna a ProgressBar invisível
+                //Torna a ProgressBar invisível e o botão visível
                 mProgressBar.setVisibility(View.GONE);
+                mBtnPlay.setVisibility(View.VISIBLE);
                 //Recupera a duração do áudio e coloca no texto
                 mTxtDuration.setText(convertMillisecond(mMediaPlayer.getDuration()));
             });
@@ -179,9 +194,6 @@ public class PlayerAudioActivity extends AppCompatActivity {
         //Retorna a duração
         return timerString;
     }
-
-    //Método que retorna para a tela anterior
-    private View.OnClickListener playerAudioReturn = v -> finish();
 
     @Override
     protected void onRestart() {

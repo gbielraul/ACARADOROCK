@@ -2,24 +2,25 @@ package com.podekrast.acaradorock.audios;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.view.MenuItem;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.podekrast.acaradorock.R;
 import com.podekrast.acaradorock.helper.ConfigFirebase;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import com.podekrast.acaradorock.adapter.AdapterAudio;
-import com.podekrast.acaradorock.helper.RecyclerItemClickListener;
 import com.podekrast.acaradorock.model.Audio;
 
 public class VoltaAoMundoAudioActivity extends AppCompatActivity {
@@ -36,21 +37,21 @@ public class VoltaAoMundoAudioActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_audio);
 
+        Toolbar toolbar = findViewById(R.id.toolbar_audio);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(programName);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back);
+        }
+
         //Recupera as Views do XML
-        ImageView mBtnReturn = findViewById(R.id.btn_return_audio);
-        TextView mTxtTitleProgram = findViewById(R.id.txt_title_program);
         mRecyclerView = findViewById(R.id.recycler_view_audio);
-
-        //Muda o texto da ActionBar para o nome do programa
-        mTxtTitleProgram.setText(programName);
-
-        //Adiciona o evento de clique para o botão que retorna para tela anterior
-        mBtnReturn.setOnClickListener(voltaAoMundoReturn);
 
         //Recupera a instância do model Audio
         audio = new Audio();
         //Recupera a referência do programa no FirebaseDatabase
-        reference = ConfigFirebase.getDatabase().child("audios").child(programName);
+        reference = ConfigFirebase.getDbReference().child("audios").child(programName);
         //Cria uma lista de audios
         audios = new ArrayList<>();
 
@@ -59,9 +60,14 @@ public class VoltaAoMundoAudioActivity extends AppCompatActivity {
 
         //Chama o método que recupera os dados do programa
         getProgramData();
+    }
 
-        //Chama o método que adiciona o evento de clique na RecyclerView
-        setRecyclerClickListener();
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return true;
     }
 
     //Metodo que configura a RecyclerView
@@ -71,39 +77,26 @@ public class VoltaAoMundoAudioActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
         //Adiciona um adapter para a RecyclerView
-        adapter = new AdapterAudio(audios);
+        adapter = new AdapterAudio(audios, recyclerClickListener);
         mRecyclerView.setAdapter(adapter);
     }
 
     //Método que adiciona o evento de clique na RecyclerView
-    private void setRecyclerClickListener() {
-        mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, mRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                //Recupera os dados do programa no model Audio
-                audio.setProgramName(programName);
-                audio.setProgramId(audios.get(position).getProgramId());
-                audio.setProgramTitle(audios.get(position).getProgramTitle());
-                audio.setProgramDate(audios.get(position).getProgramDate());
-                audio.setProgramUrl(audios.get(position).getProgramUrl());
+    private AdapterAudio.OnItemClickListener recyclerClickListener = (position) -> {
+        //Recupera os dados do programa no model Audio
+        audio.setProgramName(programName);
+        audio.setProgramId(audios.get(position).getProgramId());
+        audio.setProgramTitle(audios.get(position).getProgramTitle());
+        audio.setProgramDate(audios.get(position).getProgramDate());
+        audio.setProgramUrl(audios.get(position).getProgramUrl());
 
-                //Inicia a activity do player
-                Intent intent = new Intent(VoltaAoMundoAudioActivity.this, PlayerAudioActivity.class);
-                //Passando o título e o do áudio pela Intent para fazer referência
-                intent.putExtra("selectedAudio", audio);
-                //Inicia a Activity
-                startActivity(intent);
-            }
-            @Override
-            public void onLongItemClick(View view, int position) {
-
-            }
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-        }));
-    }
+        //Inicia a activity do player
+        Intent intent = new Intent(VoltaAoMundoAudioActivity.this, PlayerAudioActivity.class);
+        //Passando o título e o do áudio pela Intent para fazer referência
+        intent.putExtra("selectedAudio", audio);
+        //Inicia a Activity
+        startActivity(intent);
+    };
 
     //Método que recupera os dados do programa
     private void getProgramData() {
@@ -124,13 +117,11 @@ public class VoltaAoMundoAudioActivity extends AppCompatActivity {
                 //Atualiza a RecyclerView toda vez que adiciona um item novo na lista
                 adapter.notifyDataSetChanged();
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
     }
-
-    //Método que retorna para tela anterior
-    private View.OnClickListener voltaAoMundoReturn = v -> finish();
 }

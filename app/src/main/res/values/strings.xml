@@ -1,21 +1,40 @@
 <resources>
     <string name="app_name">A CARA DO ROCK</string>
+
     <string name="access_your_account">Acesse sua conta</string>
     <string name="create_your_account">Crie sua conta</string>
+
     <string name="name">Nome</string>
     <string name="email">Email</string>
     <string name="password">Senha</string>
+
     <string name="sign_in">Entrar</string>
     <string name="create_account">Criar conta</string>
+
     <string name="click_here_to_sign_up">Clique aqui para criar uma conta</string>
+
+    <string name="welcome_message">Pronto para ouvir\nA Cara do Rock?</string>
+
     <string name="sign_up">Crie sua conta</string>
-    <string name="welcome_message">Pronto para ouvir A Cara do Rock?</string>
+
     <string name="audios">Audios</string>
+
+    <string name="black_sabadle">BlackSabadle</string>
+    <string name="made_in_brazil">MadeInBrazil</string>
+    <string name="feito_no_brasil">FeitoNoBrasil</string>
+    <string name="especial">Especial</string>
+    <string name="volta_ao_mundo">VoltaAoMundo</string>
+    <string name="a_historia">AHistoria</string>
+    <string name="temporada_1">Temporada1</string>
+
     <string name="logout_dialog_title">Sair da conta</string>
     <string name="logout_dialog_message">Você deseja sair da sua conta?</string>
+
     <string name="yes">Sim</string>
     <string name="no">Não</string>
+
     <string name="click_on_one_of_the_buttons_below">Clique em um dos botões abaixo</string>
+
     <string name="validate">Preencha todos os campos!</string>
     <string name="developer">Desenvolvido por Gabriel Raul</string>
     <string name="sign_out">Sair</string>

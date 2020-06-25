@@ -1,10 +1,13 @@
 package com.podekrast.acaradorock;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -26,8 +29,15 @@ public class AudiosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_audios);
 
+        Toolbar toolbar = findViewById(R.id.toolbar_audios);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(R.string.audios);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back);
+        }
+
         //Recupera as Views do XML
-        ImageView mBtnReturn = findViewById(R.id.btn_return_audios);
         mBtnBlackSabadle = findViewById(R.id.btn_black_sabadle);
         mBtnMadeInBrazil = findViewById(R.id.btn_made_in_brazil);
         mBtnFeitoNoBrasil = findViewById(R.id.btn_feito_no_brasil);
@@ -40,9 +50,14 @@ public class AudiosActivity extends AppCompatActivity {
         setBackground();
         //Chama o método que adiciona os listeners nos botões
         setButtonListener();
+    }
 
-        //Adiciona o evento de clique que retorna para tela anterior
-        mBtnReturn.setOnClickListener(audiosReturn);
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return true;
     }
 
     //Método que muda o fundo dos botões
@@ -69,9 +84,6 @@ public class AudiosActivity extends AppCompatActivity {
         mBtnAHistoria.setOnClickListener(openAHistoria);
         mBtnTemporada1.setOnClickListener(openTemporada1);
     }
-
-    //Método que retorna para tela principal
-    private View.OnClickListener audiosReturn = v -> finish();
 
     //Métodos que chamam a Activity selecionada
     private View.OnClickListener openBlackSabadle = v ->

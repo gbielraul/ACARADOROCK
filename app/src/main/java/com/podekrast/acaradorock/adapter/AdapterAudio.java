@@ -4,8 +4,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.podekrast.acaradorock.R;
 import com.podekrast.acaradorock.model.Audio;
 
@@ -14,9 +16,11 @@ import java.util.List;
 public class AdapterAudio extends RecyclerView.Adapter<AdapterAudio.AudioViewHolder> {
 
     private List<Audio> audios;
+    private OnItemClickListener listener;
 
-    public AdapterAudio(List<Audio> audios) {
+    public AdapterAudio(List<Audio> audios, OnItemClickListener listener) {
         this.audios = audios;
+        this.listener = listener;
     }
 
     @NonNull
@@ -24,7 +28,7 @@ public class AdapterAudio extends RecyclerView.Adapter<AdapterAudio.AudioViewHol
     public AudioViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //Recupera o layout e retorna para o ViewHolder
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_audio, parent, false);
-        return new AudioViewHolder(itemView);
+        return new AudioViewHolder(itemView, listener);
     }
 
     @Override
@@ -43,8 +47,9 @@ public class AdapterAudio extends RecyclerView.Adapter<AdapterAudio.AudioViewHol
 
         private TextView mTxtTitle, mTxtDate;
 
-        public AudioViewHolder(@NonNull View itemView) {
+        public AudioViewHolder(@NonNull View itemView, final OnItemClickListener onItemClickListener) {
             super(itemView);
+            itemView.setOnClickListener((v) -> onItemClickListener.onClick(getAdapterPosition()));
             mTxtTitle = itemView.findViewById(R.id.txt_title_audio);
             mTxtDate = itemView.findViewById(R.id.txt_date_audio);
         }
@@ -53,5 +58,9 @@ public class AdapterAudio extends RecyclerView.Adapter<AdapterAudio.AudioViewHol
             mTxtTitle.setText(audio.getProgramTitle());
             mTxtDate.setText(audio.getProgramDate());
         }
+    }
+
+    public interface OnItemClickListener {
+        void onClick(int position);
     }
 }

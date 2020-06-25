@@ -7,26 +7,14 @@
     android:background="#144B75"
     tools:context=".audios.PlayerAudioActivity">
 
-    <LinearLayout
-        android:id="@+id/player_audio_action_bar"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_player_audio"
         android:layout_width="0dp"
-        android:layout_height="55dp"
-        android:background="@color/colorPrimary"
-        android:orientation="horizontal"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="@color/colorPrimaryDark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/btn_return_player_audio"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:background="?attr/selectableItemBackground"
-            android:padding="10dp"
-            android:src="@drawable/ic_arrow_back"
-            android:tint="@android:color/white"
-            tools:ignore="ContentDescription" />
-    </LinearLayout>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/img_vinyl"
@@ -35,7 +23,7 @@
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/player_audio_action_bar"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_player_audio"
         app:srcCompat="@drawable/disco_vinil"
         tools:ignore="ContentDescription" />
 
@@ -101,25 +89,18 @@
         android:layout_marginBottom="64dp"
         android:background="@drawable/btn_play"
         android:enabled="false"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <RelativeLayout
+    <ProgressBar
         android:id="@+id/progress_bar_player_audio"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="#C3000000"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="64dp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true" />
-    </RelativeLayout>
-
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

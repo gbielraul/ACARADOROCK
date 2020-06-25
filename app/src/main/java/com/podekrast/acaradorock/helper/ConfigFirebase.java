@@ -7,29 +7,26 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 public class ConfigFirebase {
-    private static FirebaseAuth autenticacao;
-    private static DatabaseReference firebase;
+
+    private static FirebaseAuth auth;
+    private static DatabaseReference dbReference;
     private static StorageReference storage;
 
-    public static DatabaseReference getDatabase() {
-        if (firebase == null) {
-            firebase = FirebaseDatabase.getInstance().getReference();
-        }
-        return firebase;
+    public static DatabaseReference getDbReference() {
+        if (dbReference == null)
+            dbReference = FirebaseDatabase.getInstance().getReference();
+        return dbReference;
     }
 
     public static StorageReference getStorage() {
-        if (storage == null) {
+        if (storage == null)
             storage = FirebaseStorage.getInstance().getReference();
-        }
         return storage;
     }
 
-    public static FirebaseAuth getAuth() {
-
-        if (autenticacao == null) {
-            autenticacao = FirebaseAuth.getInstance();
-        }
-        return autenticacao;
+    public static FirebaseAuth getFirebaseAuth() {
+        if (auth == null)
+            auth = FirebaseAuth.getInstance();
+        return auth;
     }
 }

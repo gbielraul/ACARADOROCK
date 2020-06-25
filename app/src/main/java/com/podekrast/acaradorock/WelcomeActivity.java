@@ -20,18 +20,18 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
 
         //Recupera a instância do FirebaseAuth
-        mAuth = ConfigFirebase.getAuth();
+        mAuth = ConfigFirebase.getFirebaseAuth();
 
         //Chama o método que verifica se o usuário está logado
         verifyUser();
 
         //Recupera as Views do XML
-        Button mBtnSignIn = findViewById(R.id.btn_sign_in_welcome);
-        Button mBtnSignUp = findViewById(R.id.btn_sign_up_welcome);
+        Button mBtnLogin = findViewById(R.id.btn_login_welcome);
+        Button mBtnRegister = findViewById(R.id.btn_register_welcome);
 
         //Adiciona evento de click nos botões
-        mBtnSignIn.setOnClickListener(signInWelcome);
-        mBtnSignUp.setOnClickListener(signUpWelcome);
+        mBtnLogin.setOnClickListener(loginWelcome);
+        mBtnRegister.setOnClickListener(registerWelcome);
     }
 
     @Override
@@ -41,11 +41,11 @@ public class WelcomeActivity extends AppCompatActivity {
         verifyUser();
     }
 
-    //Chama a Ativity de signin
-    private View.OnClickListener signInWelcome = v -> startActivity(new Intent(WelcomeActivity.this, SignInActivity.class));
+    //Chama a Ativity de login
+    private View.OnClickListener loginWelcome = (v) -> startActivity(new Intent(WelcomeActivity.this, LoginActivity.class));
 
-    //Chama a Activity de signup
-    private View.OnClickListener signUpWelcome = v -> startActivity(new Intent(WelcomeActivity.this, SignUpActivity.class));
+    //Chama a Activity de register
+    private View.OnClickListener registerWelcome = (v) -> startActivity(new Intent(WelcomeActivity.this, RegisterActivity.class));
 
     //Método que verifica se o usuário está logado
     private void verifyUser() {

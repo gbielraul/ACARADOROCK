@@ -2,16 +2,14 @@ package com.podekrast.acaradorock;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -21,46 +19,57 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
+import com.podekrast.acaradorock.common.view.LoadingButton;
 import com.podekrast.acaradorock.helper.Base64Custom;
 import com.podekrast.acaradorock.helper.ConfigFirebase;
 import com.podekrast.acaradorock.model.User;
 
-public class SignUpActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private EditText mEdtName, mEdtEmail, mEdtPassword;
+    private LoadingButton mBtnRegister;
     private User mUser;
-    private TextView mTxtSignUp;
-    private ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up);
+        setContentView(R.layout.activity_register);
+
+        Toolbar toolbar = findViewById(R.id.toolbar_register);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(null);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back);
+        }
 
         //Recupera a instância do Firebase Auth
-        mAuth = ConfigFirebase.getAuth();
+        mAuth = ConfigFirebase.getFirebaseAuth();
 
         //Recupera a instância da classe User
         mUser = new User();
 
         //Recupera as Views do XML
-        mEdtName = findViewById(R.id.edt_name_sign_up);
-        mEdtEmail = findViewById(R.id.edt_email_sign_up);
-        mEdtPassword = findViewById(R.id.edt_password_sign_up);
-        ImageView mBtnSignUp = findViewById(R.id.btn_sign_up);
-        Button mBtnReturn = findViewById(R.id.btn_return_sign_up);
-        mTxtSignUp = findViewById(R.id.txt_sign_up);
-        mProgressBar = findViewById(R.id.progress_bar_sign_up);
+        mEdtName = findViewById(R.id.edt_name_register);
+        mEdtEmail = findViewById(R.id.edt_email_register);
+        mEdtPassword = findViewById(R.id.edt_password_register);
+        mBtnRegister = findViewById(R.id.btn_register);
 
         //Adiciona o evento de clique para registrar o usuário
-        mBtnSignUp.setOnClickListener(signUp);
-        //Adiciona o evento de clique para retornar para tela anterior
-        mBtnReturn.setOnClickListener(signUpReturn);
+        mBtnRegister.setOnClickListener(register);
     }
 
-    private View.OnClickListener signUp = v -> {
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return true;
+    }
 
+    private View.OnClickListener register = v -> {
         //Recupera o gerenciador de método de entrada
         InputMethodManager im = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         //Se im for diferente de nulo, oculta o teclado
@@ -75,19 +84,17 @@ public class SignUpActivity extends AppCompatActivity {
         String fieldEmail = mEdtEmail.getText().toString();
         String fieldPassword = mEdtPassword.getText().toString();
 
-        //Ativa a progressBar e desativa o texto do botão
-        mProgressBar.setVisibility(View.VISIBLE);
-        mTxtSignUp.setVisibility(View.GONE);
+        //Ativa a progressBar
+        mBtnRegister.progressBarEnabled(true);
 
         //Valida se as caixas de text o estão preenchidas
         if (fieldName.isEmpty() || fieldEmail.isEmpty() || fieldPassword.isEmpty()) {
 
-            //Desativa a progressBar e ativa o texto do botão
-            mProgressBar.setVisibility(View.GONE);
-            mTxtSignUp.setVisibility(View.VISIBLE);
+            //Desativa a progressBar
+            mBtnRegister.progressBarEnabled(false);
 
             //Se o e-mail ou a senha estiver vazio exibe um Toast
-            Toast.makeText(SignUpActivity.this, "Preencha todos os campos!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(RegisterActivity.this, "Preencha todos os campos!", Toast.LENGTH_SHORT).show();
         } else {
             //Adiciona os dados do usuário no model User
             mUser.setNome(fieldName);
@@ -127,16 +134,13 @@ public class SignUpActivity extends AppCompatActivity {
                             error = "Erro inesperado! Por favor, tente novamente!";
                         }
 
-                        //Desativa a progressBar e ativa o texto do botão
-                        mProgressBar.setVisibility(View.GONE);
-                        mTxtSignUp.setVisibility(View.VISIBLE);
+                        //Desativa a progressBar
+                        mBtnRegister.progressBarEnabled(false);
                         //Exibe um Toast com a mensagem de erro
-                        Toast.makeText(SignUpActivity.this, error, Toast.LENGTH_LONG).show();
+                        Toast.makeText(RegisterActivity.this, error, Toast.LENGTH_LONG).show();
                     }
                 }
             });
         }
     };
-
-    private View.OnClickListener signUpReturn = v -> finish();
 }
