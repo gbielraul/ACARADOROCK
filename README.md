@@ -39,4 +39,4 @@ relevância para os apreciadores deste "Estilo de Vida"
 
 #### Clique [aqui](https://www.mediafire.com/file/qogtdeahv8ryhyl/A_CARA_DO_ROCK.apk/file) para baixar o aplicativo.
 
-![WelcomeScreen](/screenshots/welcome_screen.jpg)
+![WelcomeScreen](/screenshots/welcome_screen.jpg?height=150 width=150)
