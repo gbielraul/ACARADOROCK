@@ -6,13 +6,16 @@ Link da [radiojoinville.net](https://www.radiojoinville.net/)
 Pagina [ACDR no facebook](https://www.facebook.com/acaradorock/)  
 Pagina [PODEKRE no YouTube](https://www.youtube.com/podekre)  
 
-Mas a funcionalidade mais interessante, é a possibilidades de ouvir os 
-programas anteriores, a qualquer hora em qualquer lugar (se tiver conexão com internet), sem 
-precisar baixar nenhum arquivo, podendo ser usado em segundo 
-plano, não impedindo que você use seu aparelho, pode pausar e 
-voltar a ouvir de onde parou.
-Muito intuitivo, o App apresenta os programas distribuídos em abas,
-separados por estilo de acordo com a programação abaixo  
+Mas as funcionalidade mais interessante são:  
+
+* Ouvir os programas anteriores
+* Ouvir a qualquer hora em qualquer lugar (se tiver conexão com internet)
+* Não precisar baixar nenhum arquivo
+* Os programas podem ser executados em segundo plano
+* Pode pausar e voltar a ouvir de onde parou
+
+<b>Muito intuitivo</b>, o App apresenta os programas distribuídos em abas,
+separados por estilo de acordo com a programação abaixo:
 
 ### Primeira semana: A Cara do Rock <i>"Made In Brazil"</i>
 O tributo a banda <i>Made in Brazil</i> não muda, continua na primeira
