@@ -36,3 +36,7 @@ velhinhos: <i>Rithm and Blues</i>
 Um programa divertido, mostrando todas as vertentes do rock, com
 comentários, notas e curiosidades sobre tudo que possa ter
 relevância para os apreciadores deste "Estilo de Vida"
+
+#### Clique [aqui](https://www.mediafire.com/file/qogtdeahv8ryhyl/A_CARA_DO_ROCK.apk/file) para baixar o aplicativo.
+
+![WelcomeScreen](/screenshots/welcome_screen.jpg)
